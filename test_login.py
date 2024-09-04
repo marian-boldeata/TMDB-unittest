@@ -13,8 +13,15 @@ class Test_Login(Base_Data,TestCase):
 
 
     def test_login_valid_credentials(self):
-        self.insert_login_credentials('mbx-bx',4231)
-        assert self.check_if_logged_in()
+        self.insert_text(locators.LoginPageLocators.LOGIN_PAGE_USERNAME_FIELD, "mbx-bx")
+        self.insert_text(locators.LoginPageLocators.LOGIN_PAGE_PASSWORD_FIELD,'4231')
+        self.click_on(locators.LoginPageLocators.LOGIN_PAGE_SUBMIT_LOGIN_BUTTON)
+        assert self.check_if_logged_in(), f'User icon not found on nav bar, user not logged in'
+
+    def test_login_invalid_username(self):
+        self.insert_login_actions('testname_','12345')
+        assert self.check_error_message("We couldn't find your username.",locators.LoginPageLocators.LOGIN_ERRORS)
+
 
 
 

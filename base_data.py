@@ -13,11 +13,19 @@ class Base_Data():
         self.driver.implicitly_wait(10)
         return self.driver
 
+    def insert_text(self, locator, text):
+        if text == "N/A":
+            pass
+        else:
+            self.driver.find_element(*locator).send_keys(text)
 
-    def insert_login_credentials(self,username,password):
+    def insert_login_actions(self,username, password):
         self.driver.find_element(*locators.LoginPageLocators.LOGIN_PAGE_USERNAME_FIELD).send_keys(username)
         self.driver.find_element(*locators.LoginPageLocators.LOGIN_PAGE_PASSWORD_FIELD).send_keys(password)
         self.driver.find_element(*locators.LoginPageLocators.LOGIN_PAGE_SUBMIT_LOGIN_BUTTON).click()
+
+    def click_on(self,locator):
+        self.driver.find_element(*locator).click()
 
     def check_if_logged_in(self):
         element = self.driver.find_element(*locators.HomePageLocators.NAV_BAR_USER_ICON)
@@ -25,3 +33,8 @@ class Base_Data():
             return True
         else:
             return False
+
+    def check_error_message(self, expected_message, locator):
+        actual_error_message = self.driver.find_element(*locator).text
+        assert expected_message == actual_error_message, f'Error, expected - {expected_message}, received {actual_error_message}'
+

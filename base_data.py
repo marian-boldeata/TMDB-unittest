@@ -1,7 +1,14 @@
+import time
 import unittest
 
+from selenium.common import TimeoutException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
+
+from selenium.webdriver.support.wait import WebDriverWait
 from seleniumbase import Driver
+from selenium.webdriver.support import expected_conditions as EC
+
 import locators
 
 class Base_Data():
@@ -11,7 +18,12 @@ class Base_Data():
         self.driver.get("https://www.themoviedb.org/")
         self.driver.maximize_window()
         self.driver.implicitly_wait(10)
+        self.action = ActionChains(self.driver)
         return self.driver
+
+    def accept_cookies(self, locator):
+        wait = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locator))
+        wait.click()
 
     def insert_text(self, locator, text):
         if text == "N/A":
@@ -24,20 +36,50 @@ class Base_Data():
         self.driver.find_element(*locators.LoginPageLocators.LOGIN_PAGE_PASSWORD_FIELD).send_keys(password)
         self.driver.find_element(*locators.LoginPageLocators.LOGIN_PAGE_SUBMIT_LOGIN_BUTTON).click()
 
+
     def click_on(self,locator):
         self.driver.find_element(*locator).click()
 
+    def click_hold(self,locator):
+        button = self.driver.find_element(*locator)
+        self.action.move_to_element(button).perform()
+        time.sleep(0.5)
+        self.action.click(button).perform()
+
+
     def check_if_logged_in(self):
-        element = self.driver.find_element(*locators.HomePageLocators.NAV_BAR_USER_ICON)
-        if element.is_displayed():
-            return True
-        else:
-            return False
+        try:
+            WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locators.HomePageLocators.NAV_BAR_USER_ICON))
+            assert True,"User icon visible, user logged in."
+        except TimeoutException:
+            assert False,"User icon not visible, loggin test failed"
+
 
     def check_error_message(self, expected_message, locator):
         is_error_correct = False
         actual_error_message = self.driver.find_element(*locator).text
         if expected_message == actual_error_message:
             is_error_correct = True
-        return is_error_correct
+        assert is_error_correct
+
+    def validate_search_results(self,search_term):
+        validated = False
+        result_items = self.driver.find_elements(*locators.SearchPageLocators.SEARCH_RESULT_ITEM_TITLE)
+        result_titles_text = []
+        for item in result_items:
+            if item.is_displayed():
+                movie_title = item.text
+                result_titles_text.append(movie_title.lower())
+        for i in range(len(result_titles_text)):
+            if search_term in result_titles_text[i]:
+                validated = True
+        assert validated
+
+    def validate_no_search_results(self):
+        validated = False
+        if self.driver.find_element(*locators.SearchPageLocators.SEARCH_PAGE_NO_SEARCH_RESULTS).is_displayed():
+            validated = True
+
+        assert validated
+
 

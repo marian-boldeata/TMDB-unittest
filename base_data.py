@@ -35,6 +35,9 @@ class Base_Data():
             return False
 
     def check_error_message(self, expected_message, locator):
+        is_error_correct = False
         actual_error_message = self.driver.find_element(*locator).text
-        assert expected_message == actual_error_message, f'Error, expected - {expected_message}, received {actual_error_message}'
+        if expected_message == actual_error_message:
+            is_error_correct = True
+        return is_error_correct
 

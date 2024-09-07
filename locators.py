@@ -4,8 +4,19 @@ from selenium.webdriver.common.by import By
 class HomePageLocators:
     HOME_PAGE_LOGIN_BUTTON_NAV_BAR = (By.LINK_TEXT, 'Login')
     NAV_BAR_USER_ICON = (By.XPATH, '//a[@aria-label="Profile and Settings"]')
+    ACCEPT_COOKIES_BUTTON = (By.ID, "onetrust-accept-btn-handler")
+    HOME_PAGE_SEARCH_BUTTON = (By.XPATH, '//input[@value="Search"]')
+    HOME_PAGE_SEARCH_BAR = (By.ID, 'inner_search_v4')
 
-
+class SearchPageLocators:
+    SEARCH_PAGE_NO_SEARCH_RESULTS = (By.XPATH, '//div[@class="search_results movie "]/div/p')
+    SEARCH_RESULT_ITEM_TITLE = (By.XPATH, '//div[@class="content_wrapper"]//div[@class="title"]//a[@class="result"]/h2')
+    SEARCH_PAGE_FILTER_BAR = (By.XPATH, '//ul[@class="settings panel with_counts scroller"]')
+    SEARCH_PAGE_MOVIE_FILTER = (By.ID, 'movie')
+    SEARCH_PAGE_PEOPLE_FILTER = (By.ID, 'person')
+    SEARCH_PAGE_TV_SHOWS_FILTER = (By.ID, 'tv')
+    SEARCH_PAGE_COLLECTIONS_FILTER = (By.ID, 'collection')
+    SEARCH_PAGE_ITEM_DATA_TYPE = (By.XPATH, '//a[@data-media-type]')
 
 class LoginPageLocators:
     LOGIN_PAGE_USERNAME_FIELD = (By.ID, "username")

@@ -1,7 +1,7 @@
 import time
 from unittest import TestCase
 
-import locators
+
 from base_data import Base_Data
 from locators import HomePageLocators, SearchPageLocators
 
@@ -37,7 +37,7 @@ class Test_Search(TestCase, Base_Data):
         for i in range(len(filter_options_list)):
             self.driver.find_element(*filter_options_list[i]).click()
             filter_option = self.driver.find_element(*filter_options_list[i]).get_attribute('id')
-            self.validate_filter_option(locators.SearchPageLocators.SEARCH_PAGE_ITEM_DATA_TYPE ,filter_option)
+            self.validate_filter_option(SearchPageLocators.SEARCH_PAGE_ITEM_DATA_TYPE ,filter_option)
 
 
 

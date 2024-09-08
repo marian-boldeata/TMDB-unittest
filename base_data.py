@@ -1,9 +1,8 @@
-import time
-import unittest
+
+
 
 from selenium.common import TimeoutException
-from selenium.webdriver import ActionChains
-from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains, Keys
 
 from selenium.webdriver.support.wait import WebDriverWait
 from seleniumbase import Driver
@@ -40,9 +39,14 @@ class Base_Data():
     def click_on(self,locator):
         self.driver.find_element(*locator).click()
 
+
+    def wait_ENTER(self,locator):
+        element = WebDriverWait(self.driver,3).until(EC.presence_of_element_located(locator))
+        element.send_keys(Keys.ENTER)
+
     def click_hold(self,locator):
         button = self.driver.find_element(*locator)
-        self.action.move_to_element(button).pause(2).click().perform()
+        self.action.move_to_element(button).pause(0.5).click().perform()
 
 
 
@@ -59,7 +63,7 @@ class Base_Data():
         actual_error_message = self.driver.find_element(*locator).text
         if expected_message == actual_error_message:
             is_error_correct = True
-        assert is_error_correct
+        assert is_error_correct, f'expected error : {expected_message}, received : {actual_error_message}'
 
     def validate_search_results(self,search_term):
         validated = False
@@ -94,7 +98,24 @@ class Base_Data():
                     validated = False
                     break
 
-        assert validated, f'filter option {filter_option} failed validation test'
+        assert validated, f'filter option {filter_option} failed validation'
+
+
+    def validate_language_select(self,language, locator):
+        main_page_banner_welcome = {
+            '(es-ES)': 'Te damos la bienvenida.',
+            '(ro-RO)': 'Bun venit.',
+            '(de-DE)': 'Willkommen.'
+        }
+
+        if language in main_page_banner_welcome:
+            element = self.driver.find_element(*locator)
+            banner_welcome_text = element.text
+
+        assert banner_welcome_text == main_page_banner_welcome[language], f'Expected : {main_page_banner_welcome[language]}, got {banner_welcome_text}'
+
+
+
 
 
 

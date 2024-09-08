@@ -11,7 +11,6 @@ class HomePageLocators:
 class SearchPageLocators:
     SEARCH_PAGE_NO_SEARCH_RESULTS = (By.XPATH, '//div[@class="search_results movie "]/div/p')
     SEARCH_RESULT_ITEM_TITLE = (By.XPATH, '//div[@class="content_wrapper"]//div[@class="title"]//a[@class="result"]/h2')
-    SEARCH_PAGE_FILTER_BAR = (By.XPATH, '//ul[@class="settings panel with_counts scroller"]')
     SEARCH_PAGE_MOVIE_FILTER = (By.ID, 'movie')
     SEARCH_PAGE_PEOPLE_FILTER = (By.ID, 'person')
     SEARCH_PAGE_TV_SHOWS_FILTER = (By.ID, 'tv')

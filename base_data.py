@@ -22,8 +22,8 @@ class Base_Data():
         return self.driver
 
     def accept_cookies(self, locator):
-        wait = WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locator))
-        wait.click()
+        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locator)).click()
+
 
     def insert_text(self, locator, text):
         if text == "N/A":
@@ -42,9 +42,8 @@ class Base_Data():
 
     def click_hold(self,locator):
         button = self.driver.find_element(*locator)
-        self.action.move_to_element(button).perform()
-        time.sleep(0.5)
-        self.action.click(button).perform()
+        self.action.move_to_element(button).pause(2).click().perform()
+
 
 
     def check_if_logged_in(self):
@@ -81,5 +80,22 @@ class Base_Data():
             validated = True
 
         assert validated
+
+    def validate_filter_option(self, locator, filter_option):
+        validated = False
+
+        result_list = self.driver.find_elements(*locator)
+        for item in result_list:
+            if item.is_displayed():
+                item_type = item.get_attribute('data-media-type')
+                if item_type == filter_option:
+                    validated = True
+                elif item_type != filter_option:
+                    validated = False
+                    break
+
+        assert validated, f'filter option {filter_option} failed validation test'
+
+
 
 

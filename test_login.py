@@ -7,7 +7,7 @@ class Test_Login(Base_Data,TestCase):
 
     def setUp(self):
         self.driver = self.setup_actions()
-        self.accept_cookies(HomePageLocators.ACCEPT_COOKIES_BUTTON)
+        self.accept_cookies()
         self.driver.find_element(*HomePageLocators.HOME_PAGE_LOGIN_BUTTON_NAV_BAR).click()
 
     def test_login_invalid_username(self):

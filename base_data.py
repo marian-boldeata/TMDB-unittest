@@ -3,6 +3,7 @@
 
 from selenium.common import TimeoutException
 from selenium.webdriver import ActionChains, Keys
+from functools import wraps
 
 from selenium.webdriver.support.wait import WebDriverWait
 from seleniumbase import Driver
@@ -20,8 +21,8 @@ class Base_Data():
         self.action = ActionChains(self.driver)
         return self.driver
 
-    def accept_cookies(self, locator):
-        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locator)).click()
+    def accept_cookies(self):
+        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locators.HomePageLocators.ACCEPT_COOKIES_BUTTON)).click()
 
 
     def insert_text(self, locator, text):
@@ -31,9 +32,19 @@ class Base_Data():
             self.driver.find_element(*locator).send_keys(text)
 
     def insert_login_actions(self,username, password):
+        self.driver.find_element(*locators.HomePageLocators.HOME_PAGE_LOGIN_BUTTON_NAV_BAR).click()
         self.driver.find_element(*locators.LoginPageLocators.LOGIN_PAGE_USERNAME_FIELD).send_keys(username)
         self.driver.find_element(*locators.LoginPageLocators.LOGIN_PAGE_PASSWORD_FIELD).send_keys(password)
-        self.driver.find_element(*locators.LoginPageLocators.LOGIN_PAGE_SUBMIT_LOGIN_BUTTON).click()
+        self.click_hold(locators.LoginPageLocators.LOGIN_PAGE_SUBMIT_LOGIN_BUTTON)
+
+    def login_required(fnc):
+        @wraps(fnc)
+        def wrapper(self, *args, **kwargs):
+
+            self.insert_login_actions(username="mbx-bx",password="4231")
+            return fnc(self, *args, **kwargs)
+
+        return wrapper
 
 
     def click_on(self,locator):
@@ -48,6 +59,28 @@ class Base_Data():
         button = self.driver.find_element(*locator)
         self.action.move_to_element(button).pause(0.5).click().perform()
 
+    def hover_over_click_chain(self, locator, locator1='', locator2=''):
+        if locator1 == '' and locator2 == '':
+            element = self.driver.find_element(*locator)
+            self.action.move_to_element(element).click().perform()
+
+        elif locator1 != '' and locator2 == '':
+            element = self.driver.find_element(*locator)
+            self.action.move_to_element(element).click().perform()
+
+            element1 = self.driver.find_element(*locator1)
+            self.action.move_to_element(element1).click().perform()
+
+        elif locator1 != '' and locator2 != '':
+            element = self.driver.find_element(*locator)
+            self.action.move_to_element(element).perform()
+
+            element1 = self.driver.find_element(*locator1)
+            self.action.move_to_element(element1).perform()
+
+            element2 = self.driver.find_element(*locator2)
+            self.action.move_to_element(element2).click().perform()
+
 
 
     def check_if_logged_in(self):
@@ -56,6 +89,13 @@ class Base_Data():
             assert True,"User icon visible, user logged in."
         except TimeoutException:
             assert False,"User icon not visible, loggin test failed"
+
+    def check_if_added(self, item_name,locator):
+        verified = False
+        actual_item = self.driver.find_element(*locator).text
+        if item_name == actual_item:
+            verified = True
+        assert verified, f'Adeed item {item_name}  not same as item in watchlist {actual_item}'
 
 
     def check_error_message(self, expected_message, locator):

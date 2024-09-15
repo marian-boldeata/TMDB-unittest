@@ -7,7 +7,7 @@ class Test_Signup(TestCase, Base_Data):
 
     def setUp(self):
         self.driver = self.setup_actions()
-        self.accept_cookies(HomePageLocators.ACCEPT_COOKIES_BUTTON)
+        self.accept_cookies()
         self.click_hold(HomePageLocators.HOME_PAGE_JOIN_TMDB_BUTTON_NAV_BAR)
 
     def test_signup_without_username(self):

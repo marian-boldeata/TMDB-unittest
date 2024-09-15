@@ -4,7 +4,10 @@ from selenium.webdriver.common.by import By
 class HomePageLocators:
     HOME_PAGE_LOGIN_BUTTON_NAV_BAR = (By.LINK_TEXT, 'Login')
     NAV_BAR_USER_ICON = (By.XPATH, '//a[@aria-label="Profile and Settings"]')
+    HOME_PAGE_JOIN_TMDB_BUTTON_NAV_BAR = (By.LINK_TEXT, 'Join TMDB')
+
     ACCEPT_COOKIES_BUTTON = (By.ID, "onetrust-accept-btn-handler")
+
     HOME_PAGE_SEARCH_BUTTON = (By.XPATH, '//input[@value="Search"]')
     HOME_PAGE_SEARCH_BAR = (By.ID, 'inner_search_v4')
 
@@ -23,7 +26,14 @@ class SearchPageLocators:
     SEARCH_PAGE_COLLECTIONS_FILTER = (By.ID, 'collection')
     SEARCH_PAGE_ITEM_DATA_TYPE = (By.XPATH, '//a[@data-media-type]')
 
+class SignupPageLocators:
+    SIGNUP_PAGE_USERNAME_FIELD = (By.ID, 'username')
+    SIGNUP_PAGE_PASSWORD_FIELD = (By.ID, 'password')
+    SIGNUP_PAGE_PASSWORD_CONFIRM_FIELD = (By.ID, 'password_confirm')
+    SIGNUP_PAGE_EMAIL_FIELD = (By.ID, 'email')
+    SIGNUP_PAGE_SUBMIT_BUTTON = (By.ID, 'sign_up_button')
 
+    SIGNUP_ERRORS = (By.XPATH, '//div[@class="carton"]/div/ul/li')
 
 class LoginPageLocators:
     LOGIN_PAGE_USERNAME_FIELD = (By.ID, "username")

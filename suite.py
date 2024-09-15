@@ -5,6 +5,7 @@ import HtmlTestRunner
 from test_login import Test_Login
 from test_search import Test_Search
 from test_translate import Test_Translate
+from test_signup import Test_Signup
 
 class TestSuite(unittest.TestCase):
 
@@ -13,7 +14,8 @@ class TestSuite(unittest.TestCase):
         lista_teste = unittest.TestSuite()
         lista_teste.addTests([unittest.defaultTestLoader.loadTestsFromTestCase(Test_Login),
                         unittest.defaultTestLoader.loadTestsFromTestCase(Test_Search),
-                        unittest.defaultTestLoader.loadTestsFromTestCase(Test_Translate)])
+                        unittest.defaultTestLoader.loadTestsFromTestCase(Test_Translate),
+                        unittest.defaultTestLoader.loadTestsFromTestCase(Test_Signup)])
 
 
         runner = HtmlTestRunner.HTMLTestRunner(combine_reports=True,report_title='Raport', report_name="Rezultate Test")

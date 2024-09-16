@@ -6,7 +6,7 @@ class HomePageLocators:
     NAV_BAR_USER_ICON = (By.XPATH, '//a[@aria-label="Profile and Settings"]')
     HOME_PAGE_JOIN_TMDB_BUTTON_NAV_BAR = (By.LINK_TEXT, 'Join TMDB')
 
-    ACCEPT_COOKIES_BUTTON = (By.ID, "onetrust-accept-btn-handler")
+    HOME_PAGE_LOGGED_OUT_BANNER = (By.XPATH,'//h2[contains(text(), "Logged Out!")]')
 
     HOME_PAGE_SEARCH_BUTTON = (By.XPATH, '//input[@value="Search"]')
     HOME_PAGE_SEARCH_BAR = (By.ID, 'inner_search_v4')
@@ -23,7 +23,7 @@ class MyAccountLocators():
     MY_ACCOUNT_USER_NAV_DROPDOWN_WATCHLIST = (By.XPATH,'//div[@class="k-widget k-tooltip k-tooltip-closable k-popup k-group k-reset k-state-border-up tmdb_theme_white no_pad"]/div[1]/div/div//p[4]/a')
 
     MY_ACCOUNT_USER_TOGGLE_MOVIES = (By.XPATH, '//h3//a[@data-media-type="movie"]')
-    MY_ACCOUNT_USER_WATCHLIST_FIRST_TITLE = (By.XPATH, '//div[@class="title"]/div/a')
+    MY_ACCOUNT_USER_MOVIE_CARDS_FIRST_TITLE = (By.XPATH, '//div[@class="title"]/div/a')
     MY_ACCOUNT_USER_WATCHLIST_FIRST_MOVIE_CARD = (By.XPATH, '//div[@id="results_page_1"]/div[1]')
 
     MY_ACCOUNT_USER_WATCHLIST_FIRST_TITLE_REMOVE = (By.XPATH, '//div[@class="action_bar"]/ul/li[4]/a')
@@ -51,6 +51,7 @@ class SearchPageLocators:
 
 class ItemDetailsPage:
     ITEM_DETAILS_PAGE_ADD_TO_WATCHLIST = (By.ID, 'watchlist')
+    ITEM_DETAILS_PAGE_ADD_TO_FAVUORITE = (By.ID, 'favourite')
     ITEM_DETAILS_PAGE_ITEM_TITLE = (By.XPATH, '//div[@class="title ott_true"]/h2/a')
 
 class SignupPageLocators:

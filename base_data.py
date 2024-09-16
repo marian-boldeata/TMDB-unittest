@@ -21,8 +21,6 @@ class Base_Data():
         self.action = ActionChains(self.driver)
         return self.driver
 
-    def accept_cookies(self):
-        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locators.HomePageLocators.ACCEPT_COOKIES_BUTTON)).click()
 
 
     def insert_text(self, locator, text):
@@ -37,6 +35,7 @@ class Base_Data():
         self.driver.find_element(*locators.LoginPageLocators.LOGIN_PAGE_PASSWORD_FIELD).send_keys(password)
         self.click_hold(locators.LoginPageLocators.LOGIN_PAGE_SUBMIT_LOGIN_BUTTON)
 
+    # decorator function for test that require logged in user
     def login_required(fnc):
         @wraps(fnc)
         def wrapper(self, *args, **kwargs):
@@ -73,10 +72,10 @@ class Base_Data():
 
         elif locator1 != '' and locator2 != '':
             element = self.driver.find_element(*locator)
-            self.action.move_to_element(element).perform()
+            self.action.move_to_element(element).click().perform()
 
             element1 = self.driver.find_element(*locator1)
-            self.action.move_to_element(element1).perform()
+            self.action.move_to_element(element1).click().perform()
 
             element2 = self.driver.find_element(*locator2)
             self.action.move_to_element(element2).click().perform()
@@ -89,6 +88,13 @@ class Base_Data():
             assert True,"User icon visible, user logged in."
         except TimeoutException:
             assert False,"User icon not visible, loggin test failed"
+
+    def check_if_logged_out(self):
+        try:
+            WebDriverWait(self.driver,5).until(EC.presence_of_element_located(locators.HomePageLocators.HOME_PAGE_LOGGED_OUT_BANNER))
+            assert True, "Log out banner visible, user logged out"
+        except TimeoutException:
+            assert False, "User still logged in"
 
     def check_if_added(self, item_name,locator):
         verified = False

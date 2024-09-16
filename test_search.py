@@ -9,7 +9,7 @@ class Test_Search(TestCase, Base_Data):
 
     def setUp(self):
         self.driver = self.setup_actions()
-        self.accept_cookies()
+
 
 
     def test_search_results_validated(self):

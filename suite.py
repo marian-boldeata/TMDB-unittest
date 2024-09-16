@@ -17,8 +17,9 @@ class TestSuite(unittest.TestCase):
         lista_teste.addTests([unittest.defaultTestLoader.loadTestsFromTestCase(Test_Login),
                         unittest.defaultTestLoader.loadTestsFromTestCase(Test_Search),
                         unittest.defaultTestLoader.loadTestsFromTestCase(Test_Translate),
-                        unittest.defaultTestLoader.loadTestsFromTestCase(Test_Signup),
+
                         unittest.defaultTestLoader.loadTestsFromTestCase(Test_Watchlist)])
+        # removed unittest.defaultTestLoader.loadTestsFromTestCase(Test_Signup) because if chapta
 
 
         runner = HtmlTestRunner.HTMLTestRunner(combine_reports=True,report_title='Raport', report_name="Rezultate Test")
@@ -26,4 +27,5 @@ class TestSuite(unittest.TestCase):
         runner.run(lista_teste)
 
 if __name__ == "__main__":
-    TestSuite.run_suite()
+    suite = TestSuite()
+    suite.run_suite()

@@ -11,7 +11,7 @@ class Test_Translate(TestCase, Base_Data):
 
     def setUp(self):
         self.driver = self.setup_actions()
-        self.accept_cookies()
+
 
 
     def test_language_switch_to(self):

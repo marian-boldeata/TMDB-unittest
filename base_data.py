@@ -1,9 +1,10 @@
 
 
 
-from selenium.common import TimeoutException
+from selenium.common import TimeoutException, NoSuchElementException
 from selenium.webdriver import ActionChains, Keys
 from functools import wraps
+
 
 from selenium.webdriver.support.wait import WebDriverWait
 from seleniumbase import Driver
@@ -96,12 +97,20 @@ class Base_Data():
         except TimeoutException:
             assert False, "User still logged in"
 
-    def check_if_added(self, item_name,locator):
+    def check_if_added(self, item_name, locator):
         verified = False
         actual_item = self.driver.find_element(*locator).text
         if item_name == actual_item:
             verified = True
         assert verified, f'Adeed item {item_name}  not same as item in watchlist {actual_item}'
+
+    def check_if_removed(self, item_name, locator):
+        try:
+            actual_item = self.driver.find_element(*locator).text
+            self.assertNotEqual(item_name,actual_item, f'{item_name} was not deleted')
+        except NoSuchElementException:
+            self.assertTrue(True,f'{item_name} was removed')
+            assert True
 
 
     def check_error_message(self, expected_message, locator):

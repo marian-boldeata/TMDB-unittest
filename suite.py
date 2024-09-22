@@ -6,7 +6,7 @@ from test_login import Test_Login
 from test_search import Test_Search
 from test_translate import Test_Translate
 from test_signup import Test_Signup
-from test_watchlist import Test_Watchlist
+from test_item_details import Test_Item_Details
 
 
 class TestSuite(unittest.TestCase):
@@ -18,8 +18,8 @@ class TestSuite(unittest.TestCase):
                         unittest.defaultTestLoader.loadTestsFromTestCase(Test_Search),
                         unittest.defaultTestLoader.loadTestsFromTestCase(Test_Translate),
 
-                        unittest.defaultTestLoader.loadTestsFromTestCase(Test_Watchlist)])
-        # removed unittest.defaultTestLoader.loadTestsFromTestCase(Test_Signup) because if chapta
+                        unittest.defaultTestLoader.loadTestsFromTestCase(Test_Item_Details)])
+        # removed unittest.defaultTestLoader.loadTestsFromTestCase(Test_Signup) because of chapta
 
 
         runner = HtmlTestRunner.HTMLTestRunner(combine_reports=True,report_title='Raport', report_name="Rezultate Test")

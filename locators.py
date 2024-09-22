@@ -21,6 +21,8 @@ class MyAccountLocators():
     MY_ACCOUNT_USER_NAV_DROPDOWN = (By.XPATH, '//a[@aria-label="Profile and Settings"]')
     MY_ACCOUNT_USER_NAV_DROPDOWN_LOGOUT = (By.LINK_TEXT, 'Logout')
     MY_ACCOUNT_USER_NAV_DROPDOWN_WATCHLIST = (By.XPATH,'//div[@class="k-widget k-tooltip k-tooltip-closable k-popup k-group k-reset k-state-border-up tmdb_theme_white no_pad"]/div[1]/div/div//p[4]/a')
+    MY_ACCOUNT_USER_NAV_DROPDOWN_LISTS = (By.XPATH,'//div[@class="k-widget k-tooltip k-tooltip-closable k-popup k-group k-reset tmdb_theme_white no_pad k-state-border-up"]/div/div/div[@class="group"][2]/p[2]/a')
+
 
     MY_ACCOUNT_USER_TOGGLE_MOVIES = (By.XPATH, '//h3//a[@data-media-type="movie"]')
     MY_ACCOUNT_USER_MOVIE_CARDS_FIRST_TITLE = (By.XPATH, '//div[@class="title"]/div/a')
@@ -28,6 +30,10 @@ class MyAccountLocators():
 
     MY_ACCOUNT_USER_WATCHLIST_FIRST_TITLE_REMOVE = (By.XPATH, '//div[@class="action_bar"]/ul/li[4]/a')
     MY_ACCOUNT_USER_WATCHLIST_FIRST_TITLE_ADD_TO_FAV = (By.XPATH, '//div[@class="action_bar"]/ul/li[2]/a')
+
+    MY_ACCOUNT_USER_SHORTCUTBAR_LISTS = (By.XPATH,'//ul[@id="new_shortcut_bar"]/li[3]/a')
+    MY_ACCOUNT_USER_LISTS_TEST_LIST = (By.XPATH,'//a[@href="/list/8427150"]')
+    MY_ACCOUNT_USER_LISTS_FIRST_ITEM = (By.XPATH,'//div[@class="list_items"]//span[@class="w-full whitespace-nowrap"]/a')
 
     MY_ACCOUNT_USER_SHORTCUTBAR_WATCHLIST_DROPDOWN = (By.XPATH, '//span[contains(text(), "Watchlist")]')
     MY_ACCOUNT_USER_SHORTCUTBAR_WATCHLIST_MOVIES = (By.XPATH, '//ul[@id="new_shortcut_bar"]/li[5]//li[1]')
@@ -52,6 +58,11 @@ class SearchPageLocators:
 class ItemDetailsPage:
     ITEM_DETAILS_PAGE_ADD_TO_WATCHLIST = (By.ID, 'watchlist')
     ITEM_DETAILS_PAGE_ADD_TO_FAVUORITE = (By.ID, 'favourite')
+
+    ITEM_DETAILS_PAGE_ADD_TO_LIST_BUTTON = (By.CSS_SELECTOR, "[title = 'Add to list']")
+    ITEM_DETAILS_PAGE_ADD_TO_EXISTING_LIST = (By.ID,"c0d4ecbe-c496-4255-ae83-89c62c20d8e1" )
+    ITEM_DETAILS_PAGE_ADD_TO_TEST_LIST = (By.XPATH,'//li[@tabindex="-1"][2]')
+
     ITEM_DETAILS_PAGE_ITEM_TITLE = (By.XPATH, '//div[@class="title ott_true"]/h2/a')
 
 class SignupPageLocators:
